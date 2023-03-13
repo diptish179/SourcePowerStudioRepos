@@ -4,7 +4,9 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - warrior1: {fileID: 6297625023207619346, guid: d2d34dd8b125a4c49b32eb5f449e8973, type: 3}
   - warrior2: {fileID: 4478463436590460764, guid: 1163e198c90df3b46b2fc282a59a1ae5, type: 3}
+  - warrior3: {fileID: 3584740662323243002, guid: cae10440a0c11aa4294c9595f1529a55, type: 3}
   - player: {fileID: 2649561128074481216, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}

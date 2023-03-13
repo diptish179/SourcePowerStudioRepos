@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
     // Play the Idle animation
     private void PlayIdleAnimation()
     {
-        animator.Play("warrior1_idle");
+        animator.Play("Warrior_Idle");
     }
 
     // Move the enemy towards the player
@@ -81,11 +81,11 @@ public class Enemy : MonoBehaviour
     {
         if (isTrackingPlayer)
         {
-            animator.Play("warrior1_run");
+            animator.Play("Warrior_Run");
         }
         else
         {
-            animator.Play("warrior1_walk");
+            animator.Play("Warrior_Walk");
         }
     }
 }

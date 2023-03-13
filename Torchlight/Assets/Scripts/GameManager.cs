@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     {
         SpawnEnemies(warrior1, 2);
         yield return new WaitForSeconds(2f);
-        SpawnEnemies(warrior1, 2);
+        SpawnEnemies(warrior2, 2);
         yield return new WaitForSeconds(3f);
         SpawnEnemies(warrior1, 1,false);
         yield return new WaitForSeconds(3f);

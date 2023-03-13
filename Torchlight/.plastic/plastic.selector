@@ -1,4 +1,3 @@
-repository "Torchlight@diptish179@cloud"
+rep "Torchlight@diptish179@cloud"
   path "/"
-    smartbranch "/main" changeset "49"                   
-     
+    smartbranch "/main"

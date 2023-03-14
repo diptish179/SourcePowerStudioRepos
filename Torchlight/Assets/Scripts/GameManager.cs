@@ -48,13 +48,14 @@ public class GameManager : MonoBehaviour
         SpawnEnemies(warrior1, 5);
         yield return new WaitForSeconds(4f);
         SpawnEnemies(warrior1, 3);
-        SpawnEnemies(warrior1, 3);
+        SpawnEnemies(warrior3, 3);
         yield return new WaitForSeconds(4f);
         SpawnEnemies(warrior1, 1, false);
-        SpawnEnemies(warrior1, 1, false);
+        SpawnEnemies(warrior2, 1, false);
+        SpawnEnemies(warrior3, 1, false);
         yield return new WaitForSeconds(4f);
-        SpawnEnemies(warrior1, 5);
-        SpawnEnemies(warrior1, 4);
+        SpawnEnemies(warrior2, 5);
+        SpawnEnemies(warrior3, 4);
 
     }
 

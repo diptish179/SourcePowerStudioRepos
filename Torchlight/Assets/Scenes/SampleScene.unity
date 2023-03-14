@@ -1073,6 +1073,14 @@ PrefabInstance:
       propertyPath: LightBall
       value: 
       objectReference: {fileID: 375156875}
+    - target: {fileID: 2649561128074481217, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+      propertyPath: MageAtk1Prefab
+      value: 
+      objectReference: {fileID: 8803967365462650236, guid: 0b3d5bea55beb78428fcc51dc40e3836, type: 3}
+    - target: {fileID: 2649561128074481217, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+      propertyPath: circularSpritePrefab
+      value: 
+      objectReference: {fileID: 8803967365462650236, guid: 0b3d5bea55beb78428fcc51dc40e3836, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
 --- !u!1001 &1552831676

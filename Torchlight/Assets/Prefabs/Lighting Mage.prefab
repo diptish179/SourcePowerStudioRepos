@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  LightBall: {fileID: 0}
 --- !u!50 &2649561128074478012
 Rigidbody2D:
   serializedVersion: 4

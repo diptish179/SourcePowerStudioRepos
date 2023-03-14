@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,8 +13,26 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] int waveoffset = 15;
     [SerializeField] int hordeoffset = 15;
+    [SerializeField] TMP_Text timerTxt;
 
+    float totalTime = 0f;
+    
 
+    public void UpdateLevelTimer(float totalSeconds)
+    {
+        int minutes = Mathf.FloorToInt(totalSeconds / 60f);
+        int seconds = Mathf.RoundToInt(totalSeconds % 60f);
+
+        string formatedSeconds = seconds.ToString();
+
+        if (seconds == 60)
+        {
+            seconds = 0;
+            minutes += 1;
+        }
+
+        timerTxt.text = "Time survived [" + minutes.ToString("00") + ":" + seconds.ToString("00") +"]";
+    }
 
 
     void Start()
@@ -27,12 +46,14 @@ public class GameManager : MonoBehaviour
        
     }
 
-
     public void Update()
     {
-       
+        totalTime += Time.deltaTime;
+        UpdateLevelTimer(totalTime);
 
     }
+
+    
         
 
 

@@ -13,6 +13,7 @@ public class LightAttack : MonoBehaviour
         Destroy(gameObject, lifespan); // Destroy the projectile after a certain time
     }
 
+    [System.Obsolete]
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))

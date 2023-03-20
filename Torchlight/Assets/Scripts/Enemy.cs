@@ -16,6 +16,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] public bool isTrackingPlayer = true;
     [SerializeField] private float enemyHP = 10f;
     [SerializeField] private float enemyKillCount = 0f;
+    [SerializeField] float energyCrystalVanishDelay = 15f;
+    [SerializeField] float goldCoinVanishDelay = 15f;
+
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -91,6 +94,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    [System.Obsolete]
     public void TakeDamage(float damage)
     {
         enemyHP -= damage;
@@ -101,6 +105,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    [System.Obsolete]
     private void Die()
     {
         // Increase the kill count
@@ -110,17 +115,20 @@ public class Enemy : MonoBehaviour
         if (Random.value < 0.5f)
         {
             // Drop a crystal
-            Instantiate(energyCrystalPrefab, transform.position, Quaternion.identity.normalized);
-            
+            GameObject crystal = Instantiate(energyCrystalPrefab, transform.position, Quaternion.identity.normalized);
+            DestroyObject(crystal, energyCrystalVanishDelay);
+                
         }
         else
         {
             // Drop a gold coin
-            Instantiate(goldCoinPrefab, transform.position, Quaternion.identity.normalized);
-           
+            GameObject coin = Instantiate(goldCoinPrefab, transform.position, Quaternion.identity.normalized);
+            DestroyObject(coin, goldCoinVanishDelay);
         }
 
         // Destroy the enemy game object
         Destroy(gameObject);
     }
+
+   
 }

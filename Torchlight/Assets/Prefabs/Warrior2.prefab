@@ -106,6 +106,8 @@ MonoBehaviour:
   isTrackingPlayer: 1
   enemyHP: 10
   enemyKillCount: 0
+  energyCrystalVanishDelay: 15
+  goldCoinVanishDelay: 15
 --- !u!95 &-2067265789682439495
 Animator:
   serializedVersion: 5

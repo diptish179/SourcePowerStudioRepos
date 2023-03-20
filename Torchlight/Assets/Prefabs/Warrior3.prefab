@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5ad9d8b5a6279948b1ad2ff3e22ec02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energyCrystalPrefab: {fileID: 4094618596018279017, guid: f0e0af28d08423a40aeaa9af861d5b1a, type: 3}
+  goldCoinPrefab: {fileID: 5251711607774934149, guid: 218efdbed726c9e4d8c117cf07471e21, type: 3}
   speed: 1
   isTrackingPlayer: 1
   enemyHP: 15

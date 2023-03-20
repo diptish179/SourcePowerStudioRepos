@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    [SerializeField] GameObject energyCrystalPrefab;
+    [SerializeField] GameObject goldCoinPrefab;
 
     // Enemy properties
     [SerializeField] private float speed = 1f;
@@ -103,6 +105,20 @@ public class Enemy : MonoBehaviour
     {
         // Increase the kill count
         enemyKillCount++;
+
+        // Drop a crystal or a gold coin at the death position
+        if (Random.value < 0.5f)
+        {
+            // Drop a crystal
+            Instantiate(energyCrystalPrefab, transform.position, Quaternion.identity.normalized);
+            
+        }
+        else
+        {
+            // Drop a gold coin
+            Instantiate(goldCoinPrefab, transform.position, Quaternion.identity.normalized);
+           
+        }
 
         // Destroy the enemy game object
         Destroy(gameObject);

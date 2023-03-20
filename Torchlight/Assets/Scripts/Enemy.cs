@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     // Enemy properties
     [SerializeField] private float speed = 1f;
     [SerializeField] public bool isTrackingPlayer = true;
-    [SerializeField] private float enemyHP = 3f;
+    [SerializeField] private float enemyHP = 10f;
     [SerializeField] private float enemyKillCount = 0f;
 
     // Start is called before the first frame update
@@ -87,5 +87,24 @@ public class Enemy : MonoBehaviour
         {
             animator.Play("Warrior_Walk");
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        enemyHP -= damage;
+
+        if (enemyHP <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        // Increase the kill count
+        enemyKillCount++;
+
+        // Destroy the enemy game object
+        Destroy(gameObject);
     }
 }

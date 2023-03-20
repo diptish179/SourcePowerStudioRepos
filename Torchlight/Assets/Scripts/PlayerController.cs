@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    private float Atk1Speed = 7f;
     private float playerSize = 3f;
     private Vector2 movement;
     private Rigidbody2D rb;
@@ -54,14 +55,14 @@ public class PlayerController : MonoBehaviour
             // Spawn circular sprite at player's position
             GameObject circularSprite = Instantiate(MageAtk1Prefab, transform.position, Quaternion.identity);
 
-            // Generate random direction for circular sprite to travel in
-            Vector2 randomDirection = Random.insideUnitCircle.normalized;
+            // Calculate direction from player to mouse cursor
+            Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
             // Get the circular sprite's Rigidbody2D component
             Rigidbody2D circularSpriteRigidbody = circularSprite.GetComponent<Rigidbody2D>();
 
-            // Set the circular sprite's velocity to travel in the random direction at constant speed
-            circularSpriteRigidbody.velocity = randomDirection * moveSpeed;
+            // Set the circular sprite's velocity to travel in the direction at constant speed
+            circularSpriteRigidbody.velocity = direction.normalized * Atk1Speed;
         }
         else if (inputAtk2 && !isAttacking)
         {

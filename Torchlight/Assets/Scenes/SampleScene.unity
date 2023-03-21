@@ -1005,10 +1005,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -6878903453581860513, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 2649561128074478015, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1082,12 +1078,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8803967365462650236, guid: 0b3d5bea55beb78428fcc51dc40e3836, type: 3}
     - target: {fileID: 2649561128074481217, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 1240917860}
+    - target: {fileID: 2649561128074481217, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
       propertyPath: circularSpritePrefab
       value: 
       objectReference: {fileID: 8803967365462650236, guid: 0b3d5bea55beb78428fcc51dc40e3836, type: 3}
+    - target: {fileID: 7879987127371009539, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+      propertyPath: m_Size.x
+      value: 0.2372286
+      objectReference: {fileID: 0}
+    - target: {fileID: 7879987127371009539, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+      propertyPath: m_Size.y
+      value: 0.6353184
+      objectReference: {fileID: 0}
+    - target: {fileID: 7879987127371009539, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.01638569
+      objectReference: {fileID: 0}
+    - target: {fileID: 7879987127371009539, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.0023407787
+      objectReference: {fileID: 0}
+    - target: {fileID: 7879987127371009539, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: -6878903453581860513, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+--- !u!212 &1240917860 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2649561128074478014, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+  m_PrefabInstance: {fileID: 1180718040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1552831676
 PrefabInstance:
   m_ObjectHideFlags: 0

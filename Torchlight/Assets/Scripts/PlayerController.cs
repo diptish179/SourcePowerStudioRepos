@@ -1,26 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     private float Atk1Speed = 7f;
     private float playerSize = 3f;
+    public double currentHP;
+    public double maxHP = 6;
+    public bool isInvincible;
+
+
     private Vector2 movement;
     private Rigidbody2D rb;
     Animator animator;
     SpriteRenderer playerRendered;
     [SerializeField] GameObject LightBall;
     public GameObject MageAtk1Prefab;
+    [SerializeField] SpriteRenderer spriteRenderer;
 
+    Material material;   
 
     private bool isAttacking = false; // New variable to track attack state
 
     private void Start()
     {
+        currentHP = maxHP;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        material = spriteRenderer.material;
     }
 
     private void Update()
@@ -123,7 +133,36 @@ public class PlayerController : MonoBehaviour
         }
 
 
-    } 
+    }
+
+    public bool OnDamage()
+    {
+        if (!isInvincible)
+        {
+            isInvincible = true;
+            StartCoroutine(InvincibilityCoroutine());
+            if (currentHP-- <= 0)
+            {
+                //TitleManager.saveData.deathCount++;
+                Destroy(gameObject);
+                SceneManager.LoadScene("GameOver");
+
+            }
+            return true;
+        }
+        return false;
+    }
+
+    IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+        spriteRenderer.color = Color.red;         
+        yield return new WaitForSeconds(1f);
+        spriteRenderer.color = Color.white;     
+        isInvincible = false;
+    }
+
+
 
 
 }

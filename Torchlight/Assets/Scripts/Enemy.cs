@@ -130,5 +130,19 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-   
+    [System.Obsolete]
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        PlayerController player = collision.GetComponent<PlayerController>();
+        if (player != null && !player.isInvincible)
+        {
+            if (player.OnDamage())
+            {
+                //TitleManager.saveData.killCount++;
+                Die();
+            }
+        }
+    }
+
+
 }

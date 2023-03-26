@@ -102,12 +102,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyCrystalPrefab: {fileID: 4094618596018279017, guid: f0e0af28d08423a40aeaa9af861d5b1a, type: 3}
   goldCoinPrefab: {fileID: 5251711607774934149, guid: 218efdbed726c9e4d8c117cf07471e21, type: 3}
+  ultimateCoinPrefab: {fileID: 1180271952309875273, guid: 70e99041568733145a97f280fc29fda5, type: 3}
   speed: 1.5
   isTrackingPlayer: 1
   enemyHP: 5
   enemyKillCount: 0
   energyCrystalVanishDelay: 15
   goldCoinVanishDelay: 15
+  ultimateCoinVanishDelay: 15
 --- !u!95 &5806921619163963123
 Animator:
   serializedVersion: 5

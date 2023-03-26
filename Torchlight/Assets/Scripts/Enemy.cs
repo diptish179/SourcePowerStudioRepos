@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     private Animator animator;
     [SerializeField] GameObject energyCrystalPrefab;
     [SerializeField] GameObject goldCoinPrefab;
+    [SerializeField] GameObject ultimateCoinPrefab;
 
     // Enemy properties
     [SerializeField] private float speed = 1f;
@@ -18,6 +19,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float enemyKillCount = 0f;
     [SerializeField] float energyCrystalVanishDelay = 15f;
     [SerializeField] float goldCoinVanishDelay = 15f;
+    [SerializeField] float ultimateCoinVanishDelay = 15f;
+    
 
 
     // Start is called before the first frame update
@@ -111,20 +114,27 @@ public class Enemy : MonoBehaviour
         // Increase the kill count
         enemyKillCount++;
 
-        // Drop a crystal or a gold coin at the death position
-        if (Random.value < 0.5f)
+        // Drop a crystal, gold, or a ultimate coin at the death position
+        if (Random.value < 0.33f)
         {
             // Drop a crystal
             GameObject crystal = Instantiate(energyCrystalPrefab, transform.position, Quaternion.identity.normalized);
             DestroyObject(crystal, energyCrystalVanishDelay);
                 
         }
-        else
+        else if (Random.value > 0.33f && Random.value < 0.66f)
         {
             // Drop a gold coin
             GameObject coin = Instantiate(goldCoinPrefab, transform.position, Quaternion.identity.normalized);
             DestroyObject(coin, goldCoinVanishDelay);
         }
+        else 
+        {
+            // Drop a ultimate coin
+            GameObject coin = Instantiate(ultimateCoinPrefab, transform.position, Quaternion.identity.normalized);
+            DestroyObject(coin, ultimateCoinVanishDelay);
+        }
+
 
         // Destroy the enemy game object
         Destroy(gameObject);

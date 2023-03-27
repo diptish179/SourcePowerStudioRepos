@@ -12,6 +12,7 @@ public class PlayerHPBar : MonoBehaviour
     [SerializeField] PlayerController player;
     [SerializeField] Image foreground;
     [SerializeField] TMP_Text hpText;
+    [SerializeField] Image bloodOverlay;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,10 @@ public class PlayerHPBar : MonoBehaviour
     {
         double hpRatio = player.currentHP / player.maxHP;
         foreground.transform.localScale = new Vector3((float)hpRatio, 1, 1);
-        hpText.text = "HEALTH " + Math.Round(hpRatio * 100); 
+        hpText.text = "HEALTH " + Math.Round(hpRatio * 100);
+
+        // Change color of foreground Image based on HP ratio
+        bloodOverlay.color = new Color((float)(1 - hpRatio), 0, 0, (float)(1 - hpRatio));
     }
 
 

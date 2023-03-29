@@ -13,6 +13,8 @@ public class PlayerHPBar : MonoBehaviour
     [SerializeField] Image foreground;
     [SerializeField] TMP_Text hpText;
     [SerializeField] Image bloodOverlay;
+    [SerializeField] Image powerbar;
+    [SerializeField] TMP_Text powerText;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,11 @@ public class PlayerHPBar : MonoBehaviour
 
         // Change color of foreground Image based on HP ratio
         bloodOverlay.color = new Color((float)(1 - hpRatio), 0, 0, (float)(1 - hpRatio));
+
+        double powerRatio = player.currentPower / player.maxPower;
+        powerbar.transform.localScale = new Vector3((float)powerRatio, 1, 1);
+        powerText.text = "POWER " + Math.Round(powerRatio * 100);
+
     }
 
 

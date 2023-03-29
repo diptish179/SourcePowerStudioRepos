@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     public double currentHP;
     public double maxHP = 6;
     public bool isInvincible;
+    public double currentPower; // New variable to track power
+    public double maxPower = 100;
+    public bool isOutOfPower;
 
 
     private Vector2 movement;
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         currentHP = maxHP;
+        currentPower = maxPower;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         material = spriteRenderer.material;
@@ -52,11 +56,20 @@ public class PlayerController : MonoBehaviour
         }
         //transform.position += new Vector3(inputX, inputY, 0) * moveSpeed * Time.deltaTime;
 
+        if (isAttacking)
+        {
+            currentPower -= 5 * Time.deltaTime;
+            if(currentPower<=0)
+            {
+                isOutOfPower = true;
+            }
+        }
+
         if (inputX != 0) // To make the sprite face in the moving direction
         {
             transform.localScale = new Vector3(inputX > 0 ? -playerSize : playerSize, playerSize, playerSize);
         }
-        if (inputAtk1 && !isAttacking)
+        if (inputAtk1 && !isAttacking && !isOutOfPower)
         {
             animator.Play("Mage_Attack1");
             isAttacking = true;
@@ -74,19 +87,19 @@ public class PlayerController : MonoBehaviour
             // Set the circular sprite's velocity to travel in the direction at constant speed
             circularSpriteRigidbody.velocity = direction.normalized * Atk1Speed;
         }
-        else if (inputAtk2 && !isAttacking)
+        else if (inputAtk2 && !isAttacking && !isOutOfPower)
         {
             animator.Play("Mage_Attack2");
             isAttacking = true;
             LightBall.SetActive(false);
         }
-        else if (inputAtk3 && !isAttacking)
+        else if (inputAtk3 && !isAttacking && !isOutOfPower) 
         {
             animator.Play("Mage_LightCharge");
             isAttacking = true;
             LightBall.SetActive(false);
         }
-        else if (inputAtk4 && !isAttacking)
+        else if (inputAtk4 && !isAttacking && !isOutOfPower)
         {
             animator.Play("Mage_LightBall");
             isAttacking = true;

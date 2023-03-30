@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7879987127371009539}
   m_Layer: 0
   m_Name: Lighting Mage
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,8 +101,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  currentHP: 0
+  maxHP: 6
+  isInvincible: 0
+  currentPower: 0
+  maxPower: 100
+  isOutOfPower: 0
   LightBall: {fileID: 0}
   MageAtk1Prefab: {fileID: 0}
+  spriteRenderer: {fileID: 0}
 --- !u!50 &2649561128074478012
 Rigidbody2D:
   serializedVersion: 4

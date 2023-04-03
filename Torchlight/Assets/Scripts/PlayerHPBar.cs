@@ -17,6 +17,7 @@ public class PlayerHPBar : MonoBehaviour
     [SerializeField] TMP_Text powerText;
     [SerializeField] Image ultimatebar;
     [SerializeField] TMP_Text ultimateText;
+    [SerializeField] TMP_Text goldCoinsText;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,10 @@ public class PlayerHPBar : MonoBehaviour
         float ultimateRatio = player.currentUltimateCoin / player.maxUltimateCoin;
         ultimatebar.transform.localScale = new Vector3(ultimateRatio, 1f, 1f); // ultimate bar to be fixed
         ultimateText.text = "ULTIMATE " + player.currentUltimateCoin;
+
+        //Gold Coins
+        goldCoinsText.text = "$ " + player.goldCoins; 
+        
 
 
     }

@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public float currentUltimateCoin;
     public float maxUltimateCoin = 10;
     public bool ultimateReady;
+    public int goldCoins;
 
 
 
@@ -37,7 +38,8 @@ public class PlayerController : MonoBehaviour
         currentHP = maxHP;
         currentPower = maxPower;
         currentUltimateCoin = 0;
-        maxUltimateCoin = 10;        
+        maxUltimateCoin = 10;
+        goldCoins = 0;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         material = spriteRenderer.material;

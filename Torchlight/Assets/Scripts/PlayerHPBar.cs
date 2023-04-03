@@ -15,6 +15,8 @@ public class PlayerHPBar : MonoBehaviour
     [SerializeField] Image bloodOverlay;
     [SerializeField] Image powerbar;
     [SerializeField] TMP_Text powerText;
+    [SerializeField] Image ultimatebar;
+    [SerializeField] TMP_Text ultimateText;
 
     // Start is called before the first frame update
     void Start()
@@ -30,12 +32,16 @@ public class PlayerHPBar : MonoBehaviour
         hpText.text = "HEALTH " + Math.Round(hpRatio * 100);
 
         // Change color of foreground Image based on HP ratio
-        bloodOverlay.color = new Color((float)(1 - hpRatio), 0, 0, (float)(1 - hpRatio));
+        bloodOverlay.color = new Color((float)(1 - hpRatio), 0, 0, (float)(1 - hpRatio) );
 
         //Power bar controls
         double powerRatio = player.currentPower / player.maxPower;
         powerbar.transform.localScale = new Vector3((float)powerRatio, 1, 1);
         powerText.text = "POWER " + Math.Round(powerRatio * 100);
+
+
+        //Ultimate Bar controls
+        //double ultimateRatio = player.currentUC / player.maxUC;
 
 
 

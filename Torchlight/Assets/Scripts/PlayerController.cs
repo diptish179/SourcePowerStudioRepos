@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
         material = spriteRenderer.material;
     }
 
+    [System.Obsolete]
     private void Update()
     {
         float inputX = Input.GetAxis("Horizontal");
@@ -59,9 +60,13 @@ public class PlayerController : MonoBehaviour
         if (isAttacking)
         {
             currentPower -= 5 * Time.deltaTime;
-            if(currentPower<=0)
+            if (currentPower <= 0)
             {
                 isOutOfPower = true;
+            }
+            else if (currentPower > 0)
+            {
+                isOutOfPower = false;
             }
         }
 
@@ -86,6 +91,8 @@ public class PlayerController : MonoBehaviour
 
             // Set the circular sprite's velocity to travel in the direction at constant speed
             circularSpriteRigidbody.velocity = direction.normalized * Atk1Speed;
+
+            DestroyObject(circularSprite, 10f);
         }
         else if (inputAtk2 && !isAttacking && !isOutOfPower)
         {

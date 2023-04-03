@@ -1719,7 +1719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.764151, g: 0.19752577, b: 0.19752577, a: 0}
+  m_Color: {r: 1, g: 0.19752577, b: 0.19752577, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2128,6 +2128,8 @@ MonoBehaviour:
   bloodOverlay: {fileID: 1618811198}
   powerbar: {fileID: 55476794}
   powerText: {fileID: 1367428990}
+  ultimatebar: {fileID: 0}
+  ultimateText: {fileID: 0}
 --- !u!1001 &2076497655
 PrefabInstance:
   m_ObjectHideFlags: 0

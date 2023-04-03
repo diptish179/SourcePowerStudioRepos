@@ -41,8 +41,9 @@ public class PlayerHPBar : MonoBehaviour
 
 
         //Ultimate Bar controls
-        //double ultimateRatio = player.currentUC / player.maxUC;
-
+        float ultimateRatio = player.currentUltimateCoin / player.maxUltimateCoin;
+        ultimatebar.transform.localScale = new Vector3(ultimateRatio, 1f, 1f); // ultimate bar to be fixed
+        ultimateText.text = "ULTIMATE " + player.currentUltimateCoin;
 
 
     }

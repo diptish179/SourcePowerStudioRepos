@@ -75,8 +75,23 @@ public class GameManager : MonoBehaviour
         SpawnEnemies(warrior2, 1, false);
         SpawnEnemies(warrior3, 1, false);
         yield return new WaitForSeconds(4f);
-        SpawnEnemies(warrior2, 5);
-        SpawnEnemies(warrior3, 4);
+        while (true)
+        {
+            SpawnEnemies(warrior2, 1);
+            SpawnEnemies(warrior3, 1);
+            yield return new WaitForSeconds(4f);
+            SpawnEnemies(warrior1, 1);
+            SpawnEnemies(warrior2, 2);
+            yield return new WaitForSeconds(5f);
+            SpawnEnemies(warrior1, 1);
+            SpawnEnemies(warrior2, 1);
+            SpawnEnemies(warrior3, 2);
+            yield return new WaitForSeconds(5f);
+            SpawnEnemies(warrior3, 2);
+            SpawnEnemies(warrior2, 2);
+            SpawnEnemies(warrior1, 1);
+        }
+        
 
     }
 

@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     public double currentPower; // New variable to track power
     public double maxPower = 100;
     public bool isOutOfPower;
+    public float currentUltimateCoin;
+    public float maxUltimateCoin = 10;
+    public bool ultimateReady;
+
 
 
     private Vector2 movement;
@@ -32,6 +36,8 @@ public class PlayerController : MonoBehaviour
     {
         currentHP = maxHP;
         currentPower = maxPower;
+        currentUltimateCoin = 0;
+        maxUltimateCoin = 10;        
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         material = spriteRenderer.material;
@@ -92,7 +98,7 @@ public class PlayerController : MonoBehaviour
             // Set the circular sprite's velocity to travel in the direction at constant speed
             circularSpriteRigidbody.velocity = direction.normalized * Atk1Speed;
 
-            DestroyObject(circularSprite, 10f);
+            //DestroyObject(circularSprite, 10f);
         }
         else if (inputAtk2 && !isAttacking && !isOutOfPower)
         {
@@ -106,10 +112,13 @@ public class PlayerController : MonoBehaviour
             isAttacking = true;
             LightBall.SetActive(false);
         }
-        else if (inputAtk4 && !isAttacking && !isOutOfPower)
+        else if (inputAtk4 && !isAttacking && !isOutOfPower && ultimateReady)
         {
             animator.Play("Mage_LightBall");
-            isAttacking = true;
+            isAttacking = true;           
+            DisableEnemyTracking();  // set istracking property of all enemies active in the scene to false
+            currentUltimateCoin -= maxUltimateCoin;
+            ultimateReady = false;
             LightBall.SetActive(true); // Activate the LightBall game object
         }
 
@@ -141,7 +150,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.Play("Mage_Walk");
             moveSpeed = 3;
-            isAttacking = false; // Reset attack state
+            isAttacking = false; // Reset attack state        
             LightBall.SetActive(false); // Deactivate the LightBall game object
         }
         else if (inputRun != 0 && (inputX != 0 || inputY != 0))
@@ -180,6 +189,19 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         spriteRenderer.color = Color.white;     
         isInvincible = false;
+    }
+
+    public void DisableEnemyTracking()
+    {
+        Enemy[] allEnemies = FindObjectsOfType<Enemy>();
+
+        foreach (Enemy enemy in allEnemies)
+        {
+            if (enemy.gameObject.activeInHierarchy)
+            {
+                enemy.isTrackingPlayer = false;
+            }
+        }
     }
 
 

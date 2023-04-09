@@ -276,7 +276,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109075251}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.036824, y: -3.317175, z: -0.06329836}
+  m_LocalPosition: {x: 6.036824, y: -3.39, z: -0.06329836}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -778,7 +778,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.027450982, g: 0.027450982, b: 0.027450982, a: 1}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1269,7 +1269,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -1583,6 +1583,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2649561128074478014, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2649561128074478015, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1663,6 +1667,10 @@ PrefabInstance:
       propertyPath: circularSpritePrefab
       value: 
       objectReference: {fileID: 8803967365462650236, guid: 0b3d5bea55beb78428fcc51dc40e3836, type: 3}
+    - target: {fileID: 2649561128074481217, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
+      propertyPath: MageLightChargePrefab
+      value: 
+      objectReference: {fileID: 8332444693681844507, guid: 131a00ba0a15e8741abdc18dc8bb2e10, type: 3}
     - target: {fileID: 7879987127371009539, guid: 5736614022f2722458b87b38f2bf8008, type: 3}
       propertyPath: m_Size.x
       value: 0.2372286

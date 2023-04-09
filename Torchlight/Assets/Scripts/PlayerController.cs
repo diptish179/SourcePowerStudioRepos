@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    private float Atk1Speed = 7f;
-    private float playerSize = 3f;
+    public float Atk1Speed = 7f;
+    public float playerSize = 3f;
     public double currentHP;
     public double maxHP = 6;
     public bool isInvincible;
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     SpriteRenderer playerRendered;
     [SerializeField] GameObject LightBall;
+    [SerializeField] GameObject MageLightChargePrefab;
     public GameObject MageAtk1Prefab;
     [SerializeField] SpriteRenderer spriteRenderer;
 
@@ -102,18 +103,22 @@ public class PlayerController : MonoBehaviour
 
             //DestroyObject(circularSprite, 10f);
         }
+
+
         else if (inputAtk2 && !isAttacking && !isOutOfPower)
         {
             animator.Play("Mage_Attack2");
             isAttacking = true;
             LightBall.SetActive(false);
         }
-        else if (inputAtk3 && !isAttacking && !isOutOfPower) 
+
+
+        // Check for input and start the coroutine if the conditions are met
+        if (inputAtk3 && !isAttacking && !isOutOfPower)
         {
-            animator.Play("Mage_LightCharge");
-            isAttacking = true;
-            LightBall.SetActive(false);
+            StartCoroutine(AttackWithRectangularSprite());
         }
+
         else if (inputAtk4 && !isAttacking && !isOutOfPower && ultimateReady)
         {
             animator.Play("Mage_LightBall");
@@ -142,12 +147,14 @@ public class PlayerController : MonoBehaviour
         {
             // Check if an attack is in progress and continue playing the attack animation until it is complete (Wait for anim to complete cycle)
         }
+
         else if (inputX == 0 && inputY == 0)
         {
             animator.Play("Mage_Idle");
             isAttacking = false; // Reset attack state
             LightBall.SetActive(false); // Deactivate the LightBall game object
         }
+
         else if (inputRun == 0)
         {
             animator.Play("Mage_Walk");
@@ -155,6 +162,7 @@ public class PlayerController : MonoBehaviour
             isAttacking = false; // Reset attack state        
             LightBall.SetActive(false); // Deactivate the LightBall game object
         }
+
         else if (inputRun != 0 && (inputX != 0 || inputY != 0))
         {
             animator.Play("Mage_Run");
@@ -204,6 +212,34 @@ public class PlayerController : MonoBehaviour
                 enemy.isTrackingPlayer = false;
             }
         }
+    }
+
+    IEnumerator AttackWithRectangularSprite()
+    {
+        animator.Play("Mage_LightCharge");
+        isAttacking = true;
+        LightBall.SetActive(false);
+
+        // Wait until the animation is completed
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        // Determine the offset position based on the player sprite's facing direction
+        float offset = transform.localScale.x > 0 ? -1.5f : 1.5f;
+        Vector3 spawnPosition = transform.position + new Vector3(offset, 0.5f, 0);
+
+        // Instantiate the rectangular sprite at the offset position
+        GameObject rectangularSprite = Instantiate(MageLightChargePrefab, spawnPosition, Quaternion.identity);
+
+        // Determine the horizontal direction based on the player sprite's facing direction
+        Vector2 direction = transform.localScale.x > 0 ? Vector2.left : Vector2.right;
+
+        // Set the velocity of the rectangular sprite to move in the determined direction
+        Rigidbody2D rectangularSpriteRigidbody = rectangularSprite.GetComponent<Rigidbody2D>();
+        rectangularSpriteRigidbody.velocity = direction * Atk1Speed;
+
+        // Set isAttacking to false after the attack is completed
+        yield return new WaitForSeconds(0.5f);
+        isAttacking = false;
     }
 
 

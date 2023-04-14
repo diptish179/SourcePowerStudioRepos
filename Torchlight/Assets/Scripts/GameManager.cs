@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject warrior3;
     [SerializeField] GameObject player;
 
-    [SerializeField] int waveoffset = 15;
-    [SerializeField] int hordeoffset = 15;
+    [SerializeField] int waveoffset = 20;
+    [SerializeField] int hordeoffset = 20;
     [SerializeField] TMP_Text timerTxt;
 
     float totalTime = 0f;
@@ -95,25 +95,24 @@ public class GameManager : MonoBehaviour
 
     }
 
-    
-    //The enemies will follow the player when isTracking is true, or they will move to the right when isTracking is false.
 
+    // The enemies will follow the player when isTracking is true, or they will move to the right when isTracking is false.
     void SpawnEnemies(GameObject enemyPrefab, int numberOfEnemies, bool isTracking = true)
     {
         for (int i = 0; i < numberOfEnemies; i++)
         {
             Vector3 spawnPosition;
 
-            // If isTracking is true, set the spawn position to be near the player
+            // If isTracking is true, set the spawn position to be anywhere around the player
             if (isTracking)
             {
-                spawnPosition = Random.insideUnitCircle.normalized * waveoffset;
-                spawnPosition += player.transform.position;
+                Vector2 randomPointOnCircle = Random.insideUnitCircle.normalized;
+                spawnPosition = player.transform.position + new Vector3(randomPointOnCircle.x, 0, randomPointOnCircle.y) * waveoffset;
             }
-            // If isTracking is false, set the spawn position to be to the right of the player
+            // If isTracking is false, set the spawn position to be to the left of the player in the same horizontal axis
             else
             {
-                spawnPosition = player.transform.position + Vector3.right * (-hordeoffset);
+                spawnPosition = player.transform.position - player.transform.right * hordeoffset;
             }
 
             // Instantiate the enemy at the calculated position
@@ -127,6 +126,8 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+
 
 
 

@@ -31,33 +31,41 @@ public class PlayerHPBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        double hpRatio = player.currentHP / player.maxHP;
-        foreground.transform.localScale = new Vector3((float)hpRatio, 1, 1);
-        hpText.text = "HEALTH " + Math.Round(hpRatio * 100);
+            double hpRatio = player.currentHP / player.maxHP;
+            foreground.transform.localScale = new Vector3((float)hpRatio, 1, 1);
+            hpText.text = "HEALTH " + Math.Round(hpRatio * 100);
 
-        // Change color of foreground Image based on HP ratio
-        //bloodOverlay.color = new Color((float)(1 - hpRatio), 0, 0, (float)(1 - hpRatio));
+            if (hpRatio <= 0.5 && hpRatio > 0.3) // only apply effect when health is less that 50%
+            {
+                float t = Time.time % glowDuration; // get time within current glow cycle
+                float alpha = Mathf.Lerp(0.2f, 0.8f, t / blinkDuration); // interpolate alpha between 0.2 and 0.8 based on time
+                Color glowColor = new Color(originalColor.r * (float)hpRatio, 0, 0, alpha * (float)(1 - hpRatio));
 
-        if (hpRatio <= 0.5 && hpRatio > 0.3) // only apply effect when health is less that 50%
-        {
-            float t = Time.time % glowDuration; // get time within current glow cycle
-            float alpha = Mathf.Lerp(0.2f, 0.8f, t / blinkDuration); // interpolate alpha between 0.2 and 0.8 based on time
-            Color glowColor = new Color(originalColor.r * (float) hpRatio, 0, 0, alpha * (float)(1-hpRatio));
+                bloodOverlay.color = glowColor; // apply the new color
+            }
+            else if (hpRatio <= 0.3 && hpRatio > 0) // only apply effect when health is less that 30%
+            {
+                float t = Time.time % (blinkDuration / 2f); // get time within current glow cycle
+                float alpha = Mathf.Lerp(0.2f, 0.5f, t / (blinkDuration / 2f)); // interpolate alpha between 0.2 and 0.5 based on time
+                Color glowColor = new Color(originalColor.r * (float)hpRatio, 0, 0, alpha * (float)(1 - hpRatio));
 
-            bloodOverlay.color = glowColor; // apply the new color
-        }
-        else if (hpRatio <= 0.3 && hpRatio > 0) // only apply effect when health is less that 30%
-        {
-            float t = Time.time % (blinkDuration / 2f); // get time within current glow cycle
-            float alpha = Mathf.Lerp(0.2f, 0.5f, t / (blinkDuration / 2f)); // interpolate alpha between 0.2 and 0.5 based on time
-            Color glowColor = new Color(originalColor.r * (float) hpRatio,0, 0, alpha * (float)(1-hpRatio));
+                bloodOverlay.color = glowColor; // apply the new color
+            }
+            else
+            {
+                bloodOverlay.color = originalColor; // reset color to original when health is full
+            }
 
-            bloodOverlay.color = glowColor; // apply the new color
-        }
-        else
-        {
-            bloodOverlay.color = originalColor; // reset color to original when health is full
-        }
+            if (hpRatio <= 0)
+            {
+                float t = Time.time % (blinkDuration / 4f); // get time within current glow cycle
+                float alpha = Mathf.Lerp(0.2f, 1f, t / (blinkDuration / 4f)); // interpolate alpha between 0.2 and 1 based on time
+                Color glowColor = new Color(originalColor.r * 0.2f, 0, 0, alpha);
+
+                bloodOverlay.color = glowColor; // apply the new color
+            }
+        
+
 
 
         //Power bar controls

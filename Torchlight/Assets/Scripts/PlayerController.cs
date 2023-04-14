@@ -56,15 +56,48 @@ public class PlayerController : MonoBehaviour
         bool inputAtk2 = Input.GetButtonDown("Fire2");
         bool inputAtk3 = Input.GetButtonDown("Fire3");
         bool inputAtk4 = Input.GetButtonDown("Sprint");
-       // bool inputTeleport = Input.GetButtonDown("Submit");
 
-        
 
-        if (!isAttacking) // Only allow movement if not attacking
+        // Only allow movement if not attacking
+        if (!isAttacking)
         {
             transform.position += new Vector3(inputX, inputY, 0) * moveSpeed * Time.deltaTime;
         }
-        //transform.position += new Vector3(inputX, inputY, 0) * moveSpeed * Time.deltaTime;
+
+        // To make the sprite face in the moving direction
+        if (inputX != 0)
+        {
+            transform.localScale = new Vector3(inputX > 0 ? -playerSize : playerSize, playerSize, playerSize);
+        }
+
+        if (inputAtk1 && !isAttacking && !isOutOfPower)
+        {
+            StartCoroutine(AttackWithCircularSprite());
+        }
+
+        if (inputAtk2 && !isAttacking && !isOutOfPower)
+        {
+
+            StartCoroutine(AttackWithCircularSprite2());
+            //animator.Play("Mage_Attack2");
+            //isAttacking = true;
+            //LightBall.SetActive(false);
+        }
+
+        if (inputAtk3 && !isAttacking && !isOutOfPower)
+        {
+            StartCoroutine(AttackWithRectangularSprite());
+        }
+
+        if (inputAtk4 && !isAttacking && !isOutOfPower && ultimateReady)
+        {
+            animator.Play("Mage_LightBall");
+            isAttacking = true;
+            DisableEnemyTracking();  // set istracking property of all enemies active in the scene to false
+            currentUltimateCoin -= maxUltimateCoin;
+            ultimateReady = false;
+            LightBall.SetActive(true); // Activate the LightBall game object
+        }
 
         if (isAttacking)
         {
@@ -73,103 +106,44 @@ public class PlayerController : MonoBehaviour
             {
                 isOutOfPower = true;
             }
-            else if (currentPower > 0)
+            else
             {
                 isOutOfPower = false;
             }
-        }
 
-        if (inputX != 0) // To make the sprite face in the moving direction
-        {
-            transform.localScale = new Vector3(inputX > 0 ? -playerSize : playerSize, playerSize, playerSize);
-        }
-        if (inputAtk1 && !isAttacking && !isOutOfPower)
-        {
-            animator.Play("Mage_Attack1");
-            isAttacking = true;
-            LightBall.SetActive(false);
-
-            // Spawn circular sprite at player's position
-            GameObject circularSprite = Instantiate(MageAtk1Prefab, transform.position, Quaternion.identity);
-
-            // Calculate direction from player to mouse cursor
-            Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-
-            // Get the circular sprite's Rigidbody2D component
-            Rigidbody2D circularSpriteRigidbody = circularSprite.GetComponent<Rigidbody2D>();
-
-            // Set the circular sprite's velocity to travel in the direction at constant speed
-            circularSpriteRigidbody.velocity = direction.normalized * Atk1Speed;
-
-            //DestroyObject(circularSprite, 10f);
-        }
-
-
-        else if (inputAtk2 && !isAttacking && !isOutOfPower)
-        {
-            animator.Play("Mage_Attack2");
-            isAttacking = true;
-            LightBall.SetActive(false);
-        }
-
-
-        // Check for input and start the coroutine if the conditions are met
-        if (inputAtk3 && !isAttacking && !isOutOfPower)
-        {
-            StartCoroutine(AttackWithRectangularSprite());
-        }
-
-        else if (inputAtk4 && !isAttacking && !isOutOfPower && ultimateReady)
-        {
-            animator.Play("Mage_LightBall");
-            isAttacking = true;           
-            DisableEnemyTracking();  // set istracking property of all enemies active in the scene to false
-            currentUltimateCoin -= maxUltimateCoin;
-            ultimateReady = false;
-            LightBall.SetActive(true); // Activate the LightBall game object
-        }
-
-        else if (isAttacking && animator.GetCurrentAnimatorStateInfo(0).IsName("Mage_LightBall")) // Check if the current animation is "Mage_LightBall"
-        {
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f) // Check if the animation is finished
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Mage_LightBall"))
             {
-                isAttacking = false; // Reset attack state
-                LightBall.SetActive(false); // Deactivate the LightBall game object
-            }
-            else
-            {
-                LightBall.SetActive(true); // Activate the LightBall game object
+                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+                {
+                    isAttacking = false;
+                    LightBall.SetActive(false);
+                }
+                else
+                {
+                    LightBall.SetActive(true);
+                }
             }
         }
-
-        
-        else if (isAttacking && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) 
+        else
         {
-            // Check if an attack is in progress and continue playing the attack animation until it is complete (Wait for anim to complete cycle)
+            if (inputX == 0 && inputY == 0)
+            {
+                animator.Play("Mage_Idle");
+            }
+            else if (inputRun == 0)
+            {
+                animator.Play("Mage_Walk");
+                moveSpeed = 3;
+            }
+            else if (inputRun != 0 && (inputX != 0 || inputY != 0))
+            {
+                animator.Play("Mage_Run");
+                moveSpeed = 5;
+            }
+
+            LightBall.SetActive(false);
         }
 
-        else if (inputX == 0 && inputY == 0)
-        {
-            animator.Play("Mage_Idle");
-            isAttacking = false; // Reset attack state
-            LightBall.SetActive(false); // Deactivate the LightBall game object
-        }
-
-        else if (inputRun == 0)
-        {
-            animator.Play("Mage_Walk");
-            moveSpeed = 3;
-            isAttacking = false; // Reset attack state        
-            LightBall.SetActive(false); // Deactivate the LightBall game object
-        }
-
-        else if (inputRun != 0 && (inputX != 0 || inputY != 0))
-        {
-            animator.Play("Mage_Run");
-            moveSpeed = 5;
-            isAttacking = false; // Reset attack state
-            LightBall.SetActive(false); // Deactivate the LightBall game object
-        }
 
 
     }
@@ -214,6 +188,54 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    IEnumerator AttackWithCircularSprite()
+    {
+        animator.Play("Mage_Attack1");
+        isAttacking = true;
+        LightBall.SetActive(false);
+
+        // Wait until the animation is completed
+         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        // Spawn circular sprite at player's position
+        GameObject circularSprite = Instantiate(MageAtk1Prefab, transform.position, Quaternion.identity);
+
+        // Calculate direction from player to mouse cursor
+        Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+        // Get the circular sprite's Rigidbody2D component
+        Rigidbody2D circularSpriteRigidbody = circularSprite.GetComponent<Rigidbody2D>();
+
+        // Set the circular sprite's velocity to travel in the direction at constant speed
+        circularSpriteRigidbody.velocity = direction.normalized * Atk1Speed;
+
+        isAttacking = false;
+    }
+
+    IEnumerator AttackWithCircularSprite2()
+    {
+        animator.Play("Mage_Attack2");
+        isAttacking = true;
+        LightBall.SetActive(false);
+
+        // Wait until the animation is completed
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        // Spawn circular sprite at player's position
+        GameObject circularSprite = Instantiate(MageAtk1Prefab, transform.position, Quaternion.identity);
+
+        // Calculate direction from player to mouse cursor
+        Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+        // Get the circular sprite's Rigidbody2D component
+        Rigidbody2D circularSpriteRigidbody = circularSprite.GetComponent<Rigidbody2D>();
+
+        // Set the circular sprite's velocity to travel in the direction at constant speed
+        circularSpriteRigidbody.velocity = direction.normalized * Atk1Speed;
+
+        isAttacking = false;
+    }
+
     IEnumerator AttackWithRectangularSprite()
     {
         animator.Play("Mage_LightCharge");
@@ -238,9 +260,9 @@ public class PlayerController : MonoBehaviour
         rectangularSpriteRigidbody.velocity = direction * Atk1Speed;
 
         // Set isAttacking to false after the attack is completed
-        yield return new WaitForSeconds(0.5f);
         isAttacking = false;
     }
+
 
 
 

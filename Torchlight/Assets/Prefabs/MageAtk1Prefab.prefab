@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1154503159529202288}
   - component: {fileID: -8288198801979266142}
   - component: {fileID: -6434060408228137348}
-  - component: {fileID: -7132776528569799363}
   - component: {fileID: -2336184899897969699}
   - component: {fileID: 6281068567348062487}
+  - component: {fileID: 2395165298266417648}
   m_Layer: 0
   m_Name: MageAtk1Prefab
   m_TagString: Untagged
@@ -30,8 +30,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8803967365462650236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.241436, y: 0.12149775, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalPosition: {x: 20.2517, y: 0.1435, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2136849242, guid: ce74964b5af5c1e49859e1100e680eac, type: 3}
-  m_Color: {r: 1, g: 1, b: 0.09811318, a: 1}
+  m_Sprite: {fileID: 591741164, guid: 6d4ecc1e40e8e2e409094b83c02a794a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -124,22 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   lifespan: 5
---- !u!58 &-7132776528569799363
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8803967365462650236}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.1
 --- !u!95 &-2336184899897969699
 Animator:
   serializedVersion: 5
@@ -150,7 +134,7 @@ Animator:
   m_GameObject: {fileID: 8803967365462650236}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1cc508fb2475da746b6fe4e77d7f89ec, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5eb88b421c74819498a0d6572e55f182, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -256,3 +240,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!61 &2395165298266417648
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803967365462650236}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.12, y: 0.04}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.12, y: 0.04}
+  m_EdgeRadius: 0

@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject LightBall;
     [SerializeField] GameObject MageLightChargePrefab;
     public GameObject MageAtk1Prefab;
+    public GameObject MageAtk2Prefab;
     [SerializeField] SpriteRenderer spriteRenderer;
 
     Material material;   
@@ -77,11 +78,7 @@ public class PlayerController : MonoBehaviour
 
         if (inputAtk2 && !isAttacking && !isOutOfPower)
         {
-
-            StartCoroutine(AttackWithCircularSprite2());
-            //animator.Play("Mage_Attack2");
-            //isAttacking = true;
-            //LightBall.SetActive(false);
+            StartCoroutine(AttackWithCircularSprite2());           
         }
 
         if (inputAtk3 && !isAttacking && !isOutOfPower)
@@ -197,11 +194,15 @@ public class PlayerController : MonoBehaviour
         // Wait until the animation is completed
          yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
-        // Spawn circular sprite at player's position
-        GameObject circularSprite = Instantiate(MageAtk1Prefab, transform.position, Quaternion.identity);
-
         // Calculate direction from player to mouse cursor
         Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+        // Calculate the angle between the direction vector and the x-axis, and set the sprite's rotation to that angle
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        //circularSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        // Spawn circular sprite at player's position
+        GameObject circularSprite = Instantiate(MageAtk1Prefab, transform.position, Quaternion.Euler(0, 0, angle));
 
         // Get the circular sprite's Rigidbody2D component
         Rigidbody2D circularSpriteRigidbody = circularSprite.GetComponent<Rigidbody2D>();
@@ -221,11 +222,14 @@ public class PlayerController : MonoBehaviour
         // Wait until the animation is completed
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
-        // Spawn circular sprite at player's position
-        GameObject circularSprite = Instantiate(MageAtk1Prefab, transform.position, Quaternion.identity);
-
         // Calculate direction from player to mouse cursor
         Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Spawn circular sprite at player's position
+        GameObject circularSprite = Instantiate(MageAtk2Prefab, transform.position, Quaternion.Euler(0,0,angle));
+       
 
         // Get the circular sprite's Rigidbody2D component
         Rigidbody2D circularSpriteRigidbody = circularSprite.GetComponent<Rigidbody2D>();

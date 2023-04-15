@@ -228,8 +228,7 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         // Spawn circular sprite at player's position
-        GameObject circularSprite = Instantiate(MageAtk2Prefab, transform.position, Quaternion.Euler(0,0,angle));
-       
+        GameObject circularSprite = Instantiate(MageAtk2Prefab, transform.position, Quaternion.Euler(0,0,angle));       
 
         // Get the circular sprite's Rigidbody2D component
         Rigidbody2D circularSpriteRigidbody = circularSprite.GetComponent<Rigidbody2D>();

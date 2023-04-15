@@ -107,12 +107,12 @@ public class GameManager : MonoBehaviour
             if (isTracking)
             {
                 Vector2 randomPointOnCircle = Random.insideUnitCircle.normalized;
-                spawnPosition = player.transform.position + new Vector3(randomPointOnCircle.x, 0, randomPointOnCircle.y) * waveoffset;
+                spawnPosition = player.transform.position + new Vector3(randomPointOnCircle.x, randomPointOnCircle.y, 0) * waveoffset;
             }
             // If isTracking is false, set the spawn position to be to the left of the player in the same horizontal axis
             else
             {
-                spawnPosition = player.transform.position - player.transform.right * hordeoffset;
+                spawnPosition = player.transform.position -  new Vector3(hordeoffset,hordeoffset,0);
             }
 
             // Instantiate the enemy at the calculated position

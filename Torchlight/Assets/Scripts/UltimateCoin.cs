@@ -13,7 +13,7 @@ public class UltimateCoin : MonoBehaviour
         PlayerController player = collision.GetComponent<PlayerController>();
 
         // If the object has the PlayerController component
-        if (player != null)
+        if (player != null && player.currentUltimateCoin < player.maxUltimateCoin)
         {
             // Increase the current ultimate coin count of the player
             player.currentUltimateCoin += coinValue;

@@ -31,7 +31,8 @@ public class HeavyAttack : MonoBehaviour
                 {
                     float angle = i * Mathf.PI / 4f;
                     Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-                    GameObject splitProjectile = Instantiate(splitProjectilePrefab, transform.position, Quaternion.identity);
+                    GameObject splitProjectile = Instantiate(splitProjectilePrefab, transform.position, Quaternion.Euler(0, 0, i*45));
+                    //Debug.Log("angles:" + i  + ":" + angle);
                     splitProjectile.GetComponent<Rigidbody2D>().velocity = direction * GetComponent<Rigidbody2D>().velocity.magnitude;
                 }
 

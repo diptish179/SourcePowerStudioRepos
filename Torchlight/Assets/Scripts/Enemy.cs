@@ -33,9 +33,12 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        MoveTowardsPlayer();
-        FlipSprite();
-        CheckForPlayer();
+        if (player != null)
+        {
+            MoveTowardsPlayer();
+            FlipSprite();
+            CheckForPlayer();
+        }
     }
 
     // Get references to components
@@ -55,17 +58,19 @@ public class Enemy : MonoBehaviour
     // Move the enemy towards the player
     private void MoveTowardsPlayer()
     {
-        Vector3 destination = player.transform.position;
-        Vector3 source = transform.position;
-        Vector3 direction = destination - source;
+       
+            Vector3 destination = player.transform.position;
+            Vector3 source = transform.position;
+            Vector3 direction = destination - source;
 
-        if (!isTrackingPlayer)
-        {
-            direction = new Vector3(1, 0, 0);
-        }
+            if (!isTrackingPlayer)
+            {
+                direction = new Vector3(1, 0, 0);
+            }
 
-        direction.Normalize();
-        transform.position += direction * Time.deltaTime * speed;
+            direction.Normalize();
+            transform.position += direction * Time.deltaTime * speed;
+        
     }
 
     // Flip the sprite based on the direction
@@ -112,7 +117,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         // Increase the kill count
-        enemyKillCount++;
+        TitleManager.saveData.killCount++;
 
         // Drop a crystal, gold, or a ultimate coin at the death position
         if (Random.value < 0.33f)

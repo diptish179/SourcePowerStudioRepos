@@ -17,6 +17,8 @@ public class PlayerHPBar : MonoBehaviour
     [SerializeField] Image ultimatebar;
     [SerializeField] TMP_Text ultimateText;
     [SerializeField] TMP_Text goldCoinsText;
+    [SerializeField] Image deathSkull;
+    [SerializeField] TMP_Text deathCountText;
 
     private float blinkDuration = 0.5f; // duration of each blink
     private float glowDuration = 1f; // duration of each glow cycle
@@ -26,6 +28,7 @@ public class PlayerHPBar : MonoBehaviour
     void Start()
     {
         originalColor = bloodOverlay.color; // cache the original color
+        
     }
 
     // Update is called once per frame
@@ -77,10 +80,20 @@ public class PlayerHPBar : MonoBehaviour
         //Ultimate Bar controls
         float ultimateRatio = player.currentUltimateCoin / player.maxUltimateCoin;
         ultimatebar.transform.localScale = new Vector3(ultimateRatio, 1f, 1f); // ultimate bar to be fixed
-        ultimateText.text = "ULTIMATE " + player.currentUltimateCoin;
+        if (player.currentUltimateCoin == player.maxUltimateCoin)
+        {
+            ultimateText.text = "ULTIMATE READY";
+        }
+        else
+        {
+            ultimateText.text = "ULTIMATE " + player.currentUltimateCoin;
+        }
 
         //Gold Coins
         goldCoinsText.text = "$ " + player.goldCoins;
+
+        //Kill count
+        deathCountText.text = "Kills " + TitleManager.saveData.killCount.ToString();
 
     }
 

@@ -155,8 +155,12 @@ public class PlayerController : MonoBehaviour
             {
                 //TitleManager.saveData.deathCount++;
                 Destroy(gameObject);
-                SceneManager.LoadScene("GameOver");
 
+                // Check if the player gameobject is still active in the scene
+                if (GameObject.Find("Player") == null)
+                {
+                    SceneManager.LoadScene("GameOver");
+                }
             }
             return true;
         }

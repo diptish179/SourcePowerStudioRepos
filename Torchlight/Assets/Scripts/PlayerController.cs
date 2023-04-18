@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
     public float maxUltimateCoin = 10;
     public bool ultimateReady;
     public int goldCoins;
-
+    public float powerCost;
+    private float healAmount;
 
 
     private Vector2 movement;
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Image flashImage;
 
-    Material material;   
+    Material material;
 
     private bool isAttacking = false; // New variable to track attack state
 
@@ -76,35 +77,38 @@ public class PlayerController : MonoBehaviour
         if (inputAtk1 && !isAttacking && !isOutOfPower)
         {
             StartCoroutine(AttackWithCircularSprite());
+            powerCost = 4;
         }
 
         if (inputAtk2 && !isAttacking && !isOutOfPower)
         {
-            StartCoroutine(AttackWithCircularSprite2());           
+            StartCoroutine(AttackWithCircularSprite2());
+            powerCost = 7;
         }
 
         if (inputAtk3 && !isAttacking && !isOutOfPower)
         {
             StartCoroutine(AttackWithRectangularSprite());
+            powerCost = 3;
         }
 
         if (inputAtk4 && !isAttacking && !isOutOfPower && ultimateReady)
         {
+            powerCost = 10;
             animator.Play("Mage_LightBall");
             isAttacking = true;
             DisableEnemyTracking();  // set istracking property of all enemies active in the scene to false
             currentUltimateCoin -= maxUltimateCoin;
             ultimateReady = false;
             LightBall.SetActive(true); // Activate the LightBall game object                                      
-             // Wait until the animation is completed
             StartCoroutine(FlashScreen());
         }
 
-        
+
 
         if (isAttacking)
         {
-            currentPower -= 5 * Time.deltaTime;
+            currentPower -= powerCost * Time.unscaledDeltaTime;
             if (currentPower <= 0)
             {
                 isOutOfPower = true;
@@ -114,18 +118,6 @@ public class PlayerController : MonoBehaviour
                 isOutOfPower = false;
             }
 
-            //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Mage_LightBall"))
-            //{
-            //    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
-            //    {
-            //        isAttacking = false;
-            //        LightBall.SetActive(false);
-            //    }
-            //    else
-            //    {
-            //        LightBall.SetActive(true);
-            //    }
-            //}
         }
         else
         {
@@ -149,6 +141,41 @@ public class PlayerController : MonoBehaviour
 
 
 
+    }
+
+    internal void PlayerHeal()
+    {
+        StartCoroutine(HealCouroutine());
+        if (currentHP == maxHP)
+        {
+            // The player is already at full health, no further action needed
+        }
+        else if (currentHP <= 0)
+        {
+            currentHP = 0.75; // This seems like an unusual behavior, are you sure you want to set it to 0.5 instead of 0?
+        }
+        else
+        {
+            // Calculate the amount to heal the player by
+            healAmount = (float)(0.25f * maxHP);
+
+            // Ensure the heal amount won't exceed the amount needed to reach full health
+            if (currentHP + healAmount > maxHP)
+            {
+                healAmount = (float)(maxHP - currentHP);
+            }
+            // Apply the heal
+            currentHP += healAmount;
+        }
+    }
+
+
+        IEnumerator HealCouroutine()
+    {
+        spriteRenderer.color = Color.green;
+        yield return new WaitForSeconds(1f);
+        spriteRenderer.color = Color.white;
+    
     }
 
     public bool OnDamage()

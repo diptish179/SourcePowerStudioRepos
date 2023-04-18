@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float speed = 1f;
     [SerializeField] public bool isTrackingPlayer = true;
     [SerializeField] private float enemyHP = 10f;
-    [SerializeField] private float enemyKillCount = 0f;
+    [SerializeField] public float enemyKillCount = 0f;    
     [SerializeField] float energyCrystalVanishDelay = 15f;
     [SerializeField] float goldCoinVanishDelay = 15f;
     [SerializeField] float ultimateCoinVanishDelay = 15f;
@@ -161,8 +161,7 @@ public class Enemy : MonoBehaviour
         if (player != null && !player.isInvincible)
         {
             if (player.OnDamage())
-            {
-                //TitleManager.saveData.killCount++;
+            {                
                 Die();
             }
         }

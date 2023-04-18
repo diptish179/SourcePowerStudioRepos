@@ -9,6 +9,7 @@ public class PlayerHPBar : MonoBehaviour
 {
 
     [SerializeField] PlayerController player;
+    public GameObject enemy;
     [SerializeField] Image foreground;
     [SerializeField] TMP_Text hpText;
     [SerializeField] Image bloodOverlay;
@@ -24,14 +25,18 @@ public class PlayerHPBar : MonoBehaviour
     private float glowDuration = 1f; // duration of each glow cycle
     private Color originalColor; // the original color of the bloodOverlay image
     private Color originalUltimateTextsColor;
+    private Color originalhpTextColor;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         originalColor = bloodOverlay.color; // cache the original color
         originalUltimateTextsColor = ultimateText.color;
-
-
+        originalhpTextColor = hpText.color;
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        // At the start of the game
+        TitleManager.saveData.killCount = 0;
     }
 
     // Update is called once per frame
@@ -46,7 +51,7 @@ public class PlayerHPBar : MonoBehaviour
                 float t = Time.time % glowDuration; // get time within current glow cycle
                 float alpha = Mathf.Lerp(0.2f, 0.8f, t / blinkDuration); // interpolate alpha between 0.2 and 0.8 based on time
                 Color glowColor = new Color(originalColor.r * (float)hpRatio, 0, 0, alpha * (float)(1 - hpRatio));
-
+                hpText.color = originalhpTextColor;
                 bloodOverlay.color = glowColor; // apply the new color
             }
             else if (hpRatio <= 0.3 && hpRatio > 0) // only apply effect when health is less that 30%
@@ -54,7 +59,7 @@ public class PlayerHPBar : MonoBehaviour
                 float t = Time.time % (blinkDuration / 2f); // get time within current glow cycle
                 float alpha = Mathf.Lerp(0.2f, 0.5f, t / (blinkDuration / 2f)); // interpolate alpha between 0.2 and 0.5 based on time
                 Color glowColor = new Color(originalColor.r * (float)hpRatio, 0, 0, alpha * (float)(1 - hpRatio));
-
+                hpText.color = originalhpTextColor;
                 bloodOverlay.color = glowColor; // apply the new color
             }
             else

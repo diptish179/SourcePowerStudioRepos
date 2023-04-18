@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class GoldCoins : MonoBehaviour
 {
+    AudioSource goldCoinSFX;
     // Start is called before the first frame update
     void Start()
     {
-        
+        goldCoinSFX = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -16,6 +17,7 @@ public class GoldCoins : MonoBehaviour
         
     }
 
+    [System.Obsolete]
     public void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerController player = collision.GetComponent<PlayerController>();
@@ -24,8 +26,9 @@ public class GoldCoins : MonoBehaviour
         {
 
             TitleManager.saveData.goldCoins++;
-
-            Destroy(gameObject);
+            goldCoinSFX.Play();
+            DestroyObject(gameObject, 0.5f);
+           
         }
 
         

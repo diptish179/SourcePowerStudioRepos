@@ -5,8 +5,14 @@ using UnityEngine;
 public class UltimateCoin : MonoBehaviour
 {
     public int coinValue = 1; // value of the coin
+    AudioSource ultiCoinSFX;
+    void Start()
+    {
+        ultiCoinSFX = GetComponent<AudioSource>();
+    }
 
     // OnTriggerEnter2D is called when a collider enters the trigger zone of the game object
+    [System.Obsolete]
     public void OnTriggerEnter2D(Collider2D collision)
     {
         // Get the PlayerController component from the object that collided with the coin
@@ -26,7 +32,9 @@ public class UltimateCoin : MonoBehaviour
             }
 
             // Destroy the coin game object
-            Destroy(gameObject);
+            ultiCoinSFX.Play();
+            DestroyObject(gameObject, 0.5f);
+            
         }
     }
 }

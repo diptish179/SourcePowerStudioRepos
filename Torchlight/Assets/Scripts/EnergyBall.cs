@@ -6,7 +6,13 @@ public class EnergyBall : MonoBehaviour
 {
     [SerializeField] int minPowerIncrease = 1;
     [SerializeField] int maxPowerIncrease = 10;
+    AudioSource energyBallSFX;
+    void Start()
+    {
+        energyBallSFX = GetComponent<AudioSource>();
+    }
 
+    [System.Obsolete]
     public void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerController player = collision.GetComponent<PlayerController>();
@@ -18,13 +24,16 @@ public class EnergyBall : MonoBehaviour
             {
                 player.currentPower = player.maxPower;
             }
-            Destroy(gameObject);
+                      
 
             if (player.isOutOfPower)
             {
                 player.isOutOfPower = false;
                 player.currentPower += powerIncrease;
             }
+
+            energyBallSFX.Play();
+            DestroyObject(gameObject, 0.5f);
         }
     }
 }

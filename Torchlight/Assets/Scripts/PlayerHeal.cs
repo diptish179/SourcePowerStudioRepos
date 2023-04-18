@@ -5,14 +5,14 @@ using UnityEngine;
 public class PlayerHeal : MonoBehaviour
 {
 
-    //AudioSource playerHealSFX;
+    AudioSource playerHealSFX;
     //public GameObject player;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        // playerHealSFX = GetComponent<AudioSource>();
+        playerHealSFX = GetComponent<AudioSource>();
         //player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -34,7 +34,7 @@ public class PlayerHeal : MonoBehaviour
             //Debug.Log("Picked up 1 HP");
             TitleManager.saveData.healpotionCount++;
             player.PlayerHeal();
-            // playerHealSFX.Play();
+            playerHealSFX.Play();
             DestroyObject(gameObject, 0.5f);
         }
     }

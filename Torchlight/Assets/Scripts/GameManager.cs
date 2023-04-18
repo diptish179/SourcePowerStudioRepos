@@ -80,26 +80,42 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SpawnEnemyWave1Coroutine()
     {
-        SpawnEnemies(warrior1, 2);
-        yield return new WaitForSeconds(2f);
-        SpawnEnemies(warrior2, 2);
-        yield return new WaitForSeconds(3f);
-        SpawnEnemies(warrior1, 1,false);
-        yield return new WaitForSeconds(3f);
-        SpawnEnemies(warrior1, 5);
-        yield return new WaitForSeconds(4f);
-        SpawnEnemies(warrior1, 3);
-        SpawnEnemies(warrior3, 3);
-        yield return new WaitForSeconds(4f);
-        SpawnEnemies(warrior1, 1, false);
-        SpawnEnemies(warrior2, 1, false);
-        SpawnEnemies(warrior3, 1, false);
-        yield return new WaitForSeconds(4f);
+        int numEnemies = 2; // Start with 2 enemies
+        int killCount = TitleManager.saveData.killCount;
+
         while (true)
         {
-            SpawnEnemies(warrior2, 1);
-            SpawnEnemies(warrior3, 1);
+            if (killCount >= 100) // Increase the number of enemies after every 100 kills
+            {
+                numEnemies++;
+                killCount -= 100;
+            }
+
+            SpawnEnemies(warrior1, numEnemies);
+            yield return new WaitForSeconds(2f);
+            SpawnEnemies(warrior2, numEnemies);
+            yield return new WaitForSeconds(3f);
+            SpawnEnemies(warrior3, numEnemies);
+            yield return new WaitForSeconds(3f);
+            SpawnEnemies(warrior1, 1, false);
+            yield return new WaitForSeconds(3f);
+            SpawnEnemies(warrior1, 5);
             yield return new WaitForSeconds(4f);
+            SpawnEnemies(warrior1, 3);
+            SpawnEnemies(warrior3, 3);
+            yield return new WaitForSeconds(4f);
+            SpawnEnemies(warrior1, 1, false);
+            SpawnEnemies(warrior2, 1, false);
+            SpawnEnemies(warrior3, 1, false);
+            yield return new WaitForSeconds(4f);
+
+            for (int i = 0; i < numEnemies; i++)
+            {
+                SpawnEnemies(warrior2, 1);
+                SpawnEnemies(warrior3, 1);
+                yield return new WaitForSeconds(4f);
+            }
+
             SpawnEnemies(warrior1, 1);
             SpawnEnemies(warrior2, 2);
             yield return new WaitForSeconds(5f);
@@ -111,9 +127,8 @@ public class GameManager : MonoBehaviour
             SpawnEnemies(warrior2, 2);
             SpawnEnemies(warrior1, 1);
         }
-        
-
     }
+
 
 
     // The enemies will follow the player when isTracking is true, or they will move to the right when isTracking is false.

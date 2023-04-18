@@ -125,11 +125,12 @@ MonoBehaviour:
   ultimateCoinPrefab: {fileID: 1180271952309875273, guid: 70e99041568733145a97f280fc29fda5, type: 3}
   speed: 0.5
   isTrackingPlayer: 1
-  enemyHP: 15
+  enemyHP: 5
   enemyKillCount: 0
   energyCrystalVanishDelay: 15
   goldCoinVanishDelay: 15
   ultimateCoinVanishDelay: 15
+  outOfBoundsDistance: 50
 --- !u!50 &-6059899830974511320
 Rigidbody2D:
   serializedVersion: 4

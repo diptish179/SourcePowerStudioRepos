@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float energyCrystalVanishDelay = 15f;
     [SerializeField] float goldCoinVanishDelay = 15f;
     [SerializeField] float ultimateCoinVanishDelay = 15f;
-    
+    [SerializeField] float outOfBoundsDistance = 50f;
 
 
     // Start is called before the first frame update
@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
             MoveTowardsPlayer();
             FlipSprite();
             CheckForPlayer();
+            CheckOutOfBounds();
         }
     }
 
@@ -55,23 +56,31 @@ public class Enemy : MonoBehaviour
         animator.Play("Warrior_Idle");
     }
 
-    // Move the enemy towards the player
     private void MoveTowardsPlayer()
     {
-       
-            Vector3 destination = player.transform.position;
-            Vector3 source = transform.position;
-            Vector3 direction = destination - source;
+        Vector3 destination = player.transform.position;
+        Vector3 source = transform.position;
+        Vector3 direction = destination - source;
+        direction.Normalize();
 
-            if (!isTrackingPlayer)
-            {
-                direction = new Vector3(1, 0, 0);
-            }
+        if (!isTrackingPlayer)
+        {
+            // If not tracking player, move in the horizontal direction the enemy sprite is facing
+            //float sign = Mathf.Sign(transform.localScale.x);
+            if (direction.x > 0)
+            { direction = new Vector3(-1f, 0, 0); }
+            else
+            { direction = new Vector3(1f, 0, 0); }
+        }
 
-            direction.Normalize();
-            transform.position += direction * Time.deltaTime * speed;
         
+        transform.position += direction * Time.deltaTime * speed;
     }
+
+
+
+
+
 
     // Flip the sprite based on the direction
     private void FlipSprite()
@@ -158,6 +167,17 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
+    private void CheckOutOfBounds()
+    {
+        float playerXPosition = player.transform.position.x;
+        float distanceFromPlayer = Mathf.Abs(transform.position.x - playerXPosition);
+        if (distanceFromPlayer > outOfBoundsDistance)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
 
 }

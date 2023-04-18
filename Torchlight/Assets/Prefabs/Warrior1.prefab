@@ -110,6 +110,7 @@ MonoBehaviour:
   energyCrystalVanishDelay: 15
   goldCoinVanishDelay: 15
   ultimateCoinVanishDelay: 15
+  outOfBoundsDistance: 50
 --- !u!95 &5806921619163963123
 Animator:
   serializedVersion: 5

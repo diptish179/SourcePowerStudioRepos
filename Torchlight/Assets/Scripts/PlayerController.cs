@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
         currentUltimateCoin = 0;
         maxUltimateCoin = 10;
         goldCoins = 0;
+        TitleManager.saveData.ultimateUsedCount = 0;
+        TitleManager.saveData.goldCoins = 0;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         material = spriteRenderer.material;
@@ -94,6 +96,7 @@ public class PlayerController : MonoBehaviour
 
         if (inputAtk4 && !isAttacking && !isOutOfPower && ultimateReady)
         {
+            TitleManager.saveData.ultimateUsedCount++;
             powerCost = 10;
             animator.Play("Mage_LightBall");
             isAttacking = true;

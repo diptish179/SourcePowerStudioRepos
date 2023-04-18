@@ -23,7 +23,7 @@ public class GoldCoins : MonoBehaviour
         if(player != null)
         {
 
-            player.goldCoins++;
+            TitleManager.saveData.goldCoins++;
 
             Destroy(gameObject);
         }

@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject warrior3;
     [SerializeField] GameObject player;
     [SerializeField] GameObject healItem0;
-    //[SerializeField] GameObject healItem2;
 
     [SerializeField] int waveoffset = 20;
     [SerializeField] int hordeoffset = 20;
@@ -46,6 +45,7 @@ public class GameManager : MonoBehaviour
             // Start spawning enemies using the SpawnEnemy1Coroutine if Level 1 is loaded
             StartCoroutine(SpawnEnemyWave1Coroutine());
             StartCoroutine(SpawnHealItemCoroutine());
+            TitleManager.saveData.timeSurvived = 0;
         }
        
     }
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
         totalTime += Time.deltaTime;
         UpdateLevelTimer(totalTime);
-
+        TitleManager.saveData.timeSurvived = totalTime;
     }
 
     private IEnumerator SpawnHealItemCoroutine()

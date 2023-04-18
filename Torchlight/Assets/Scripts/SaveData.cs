@@ -8,6 +8,7 @@ public class SaveData
     public int killCount;
     public int goldCoins;
     public int energyballCount;
-    public int ultimateCoinsCount;
+    public int ultimateUsedCount;
     public int healpotionCount;
+    public float timeSurvived;
 }

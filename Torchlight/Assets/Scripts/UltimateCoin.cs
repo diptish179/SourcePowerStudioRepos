@@ -17,7 +17,7 @@ public class UltimateCoin : MonoBehaviour
         {
             // Increase the current ultimate coin count of the player
             player.currentUltimateCoin += coinValue;
-
+            
             // If the current ultimate coin count is equal to the max ultimate coin count
             if (player.currentUltimateCoin == player.maxUltimateCoin)
             {

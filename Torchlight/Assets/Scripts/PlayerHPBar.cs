@@ -37,6 +37,7 @@ public class PlayerHPBar : MonoBehaviour
         enemy = GameObject.FindGameObjectWithTag("Enemy");
         // At the start of the game
         TitleManager.saveData.killCount = 0;
+        TitleManager.saveData.goldCoins = 0;
     }
 
     // Update is called once per frame
@@ -123,7 +124,7 @@ public class PlayerHPBar : MonoBehaviour
 
 
         //Gold Coins
-        goldCoinsText.text = "$ " + player.goldCoins;
+        goldCoinsText.text = "$ " + TitleManager.saveData.goldCoins.ToString();
 
         //Kill count
         deathCountText.text = "Kills " + TitleManager.saveData.killCount.ToString();

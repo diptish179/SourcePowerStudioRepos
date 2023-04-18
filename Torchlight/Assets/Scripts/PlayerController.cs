@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public GameObject MageAtk1Prefab;
     public GameObject MageAtk2Prefab;
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] Image flashImage;
 
     Material material;   
 
@@ -93,8 +95,12 @@ public class PlayerController : MonoBehaviour
             DisableEnemyTracking();  // set istracking property of all enemies active in the scene to false
             currentUltimateCoin -= maxUltimateCoin;
             ultimateReady = false;
-            LightBall.SetActive(true); // Activate the LightBall game object
+            LightBall.SetActive(true); // Activate the LightBall game object                                      
+             // Wait until the animation is completed
+            StartCoroutine(FlashScreen());
         }
+
+        
 
         if (isAttacking)
         {
@@ -108,18 +114,18 @@ public class PlayerController : MonoBehaviour
                 isOutOfPower = false;
             }
 
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Mage_LightBall"))
-            {
-                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
-                {
-                    isAttacking = false;
-                    LightBall.SetActive(false);
-                }
-                else
-                {
-                    LightBall.SetActive(true);
-                }
-            }
+            //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Mage_LightBall"))
+            //{
+            //    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            //    {
+            //        isAttacking = false;
+            //        LightBall.SetActive(false);
+            //    }
+            //    else
+            //    {
+            //        LightBall.SetActive(true);
+            //    }
+            //}
         }
         else
         {
@@ -165,6 +171,29 @@ public class PlayerController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private IEnumerator FlashScreen()
+    {
+        // Wait for one second
+        yield return new WaitForSeconds(1f);
+        // Set the color to white
+        flashImage.color = Color.white;        
+
+        // Gradually fade the color back to transparent over one second
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime;
+            flashImage.color = Color.Lerp(Color.white, Color.clear, t);
+            yield return null;
+        }
+
+        // Deactivate the LightBall game object
+        LightBall.SetActive(false);
+
+        // Set the isAttacking flag to false to allow another attack
+        isAttacking = false;
     }
 
     IEnumerator InvincibilityCoroutine()

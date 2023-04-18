@@ -23,12 +23,15 @@ public class PlayerHPBar : MonoBehaviour
     private float blinkDuration = 0.5f; // duration of each blink
     private float glowDuration = 1f; // duration of each glow cycle
     private Color originalColor; // the original color of the bloodOverlay image
+    private Color originalUltimateTextsColor;
 
     // Start is called before the first frame update
     void Start()
     {
         originalColor = bloodOverlay.color; // cache the original color
-        
+        originalUltimateTextsColor = ultimateText.color;
+
+
     }
 
     // Update is called once per frame
@@ -61,10 +64,15 @@ public class PlayerHPBar : MonoBehaviour
 
             if (hpRatio <= 0)
             {
+                hpText.text = "LOW HP";
+                float t1 = Time.time % (blinkDuration * 2); // get time within current blink cycle
+                float alpha1 = Mathf.Lerp(0.2f, 1f, t1 / blinkDuration); // interpolate alpha between 0.2 and 1 based on time
+                Color flashColor = new Color(1f, 0, 0, alpha1);
+                hpText.color = flashColor;
                 float t = Time.time % (blinkDuration / 4f); // get time within current glow cycle
                 float alpha = Mathf.Lerp(0.2f, 1f, t / (blinkDuration / 4f)); // interpolate alpha between 0.2 and 1 based on time
                 Color glowColor = new Color(originalColor.r * 0.2f, 0, 0, alpha);
-
+                
                 bloodOverlay.color = glowColor; // apply the new color
             }
         
@@ -75,6 +83,18 @@ public class PlayerHPBar : MonoBehaviour
         double powerRatio = player.currentPower / player.maxPower;
         powerbar.transform.localScale = new Vector3((float)powerRatio, 1, 1);
         powerText.text = "POWER " + Math.Round(powerRatio * 100);
+        if(powerRatio <= 0)
+        {
+            powerText.text = "NO POWER";
+            float t1 = Time.time % (blinkDuration * 2); // get time within current blink cycle
+            float alpha1 = Mathf.Lerp(0.2f, 1f, t1 / blinkDuration); // interpolate alpha between 0.2 and 1 based on time
+            Color flashColor = new Color(0, 0, 1f, alpha1);
+            powerText.color = flashColor;
+        }
+        else
+        {
+            powerText.color = originalUltimateTextsColor;
+        }
 
 
         //Ultimate Bar controls
@@ -82,18 +102,27 @@ public class PlayerHPBar : MonoBehaviour
         ultimatebar.transform.localScale = new Vector3(ultimateRatio, 1f, 1f); // ultimate bar to be fixed
         if (player.currentUltimateCoin == player.maxUltimateCoin)
         {
-            ultimateText.text = "ULTIMATE READY";
+            ultimateText.text = "ULTI READY";
+            // Flash the text green
+            float t = Time.time % (blinkDuration * 2); // get time within current blink cycle
+            float alpha = Mathf.Lerp(0.2f, 1f, t / blinkDuration); // interpolate alpha between 0.2 and 1 based on time
+            Color flashColor = new Color(0, 1f, 0, alpha);
+            ultimateText.color = flashColor;
         }
         else
         {
             ultimateText.text = "ULTIMATE " + player.currentUltimateCoin;
+            // Reset the text color to original state
+            ultimateText.color = originalUltimateTextsColor;
         }
+
 
         //Gold Coins
         goldCoinsText.text = "$ " + player.goldCoins;
 
         //Kill count
         deathCountText.text = "Kills " + TitleManager.saveData.killCount.ToString();
+
 
     }
 

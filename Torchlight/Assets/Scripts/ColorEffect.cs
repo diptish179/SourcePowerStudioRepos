@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ColorEffect : MonoBehaviour
 {
     private Image image;
-    private float colorChangeTime = 1f; // Time between color changes in seconds
+    private float colorChangeTime = 4f; // Time between color changes in seconds
     private float timer = 0f; // Timer to keep track of time
 
     void Start()

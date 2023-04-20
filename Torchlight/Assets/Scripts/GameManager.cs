@@ -88,10 +88,10 @@ public class GameManager : MonoBehaviour
 
         while (true)
         {
-            if (killCount >= 100) // Increase the number of enemies after every 100 kills
+            if (killCount >= 20) // Increase the number of enemies after every 20 kills
             {
                 numEnemies++;
-                killCount -= 100;
+                killCount -= 20;
             }
 
             SpawnEnemies(warrior1, numEnemies);
@@ -114,21 +114,21 @@ public class GameManager : MonoBehaviour
 
             for (int i = 0; i < numEnemies; i++)
             {
-                SpawnEnemies(warrior2, 1);
-                SpawnEnemies(warrior3, 1);
+                SpawnEnemies(warrior2, 2);
+                SpawnEnemies(warrior3, 3);
                 yield return new WaitForSeconds(4f);
             }
 
             SpawnEnemies(warrior1, 1);
             SpawnEnemies(warrior2, 2);
             yield return new WaitForSeconds(5f);
-            SpawnEnemies(warrior1, 1);
-            SpawnEnemies(warrior2, 1);
-            SpawnEnemies(warrior3, 2);
+            SpawnEnemies(warrior1, 3);
+            SpawnEnemies(warrior2, 4);
+            SpawnEnemies(warrior3, 5);
             yield return new WaitForSeconds(5f);
-            SpawnEnemies(warrior3, 2);
-            SpawnEnemies(warrior2, 2);
-            SpawnEnemies(warrior1, 1);
+            SpawnEnemies(warrior3, 4);
+            SpawnEnemies(warrior2, 5);
+            SpawnEnemies(warrior1, 6);
         }
     }
 

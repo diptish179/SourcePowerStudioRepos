@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] int waveoffset = 20;
     [SerializeField] int hordeoffset = 20;
     [SerializeField] int healItemoffset = 15;
+    [SerializeField] float healCoinVanishDelay = 30f;
+
     [SerializeField] TMP_Text timerTxt;
 
     float totalTime = 0f;
@@ -73,7 +75,8 @@ public class GameManager : MonoBehaviour
         Vector3 healItemSpawnPosition = Random.insideUnitCircle.normalized * healItemoffset;
 
         healItemSpawnPosition += player.transform.position;
-        Instantiate(healItem0, healItemSpawnPosition, Quaternion.identity);
+        GameObject healcoin = Instantiate(healItem0, healItemSpawnPosition, Quaternion.identity);
+        Destroy(healcoin, healCoinVanishDelay);
 
     }
 
